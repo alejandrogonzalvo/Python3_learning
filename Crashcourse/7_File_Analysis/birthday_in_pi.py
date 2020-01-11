@@ -1,5 +1,7 @@
 # !/usr/bin/python3.5
 
+# This program reads from a .txt file that contains the pi number and searches the given number inside.
+
 
 filename = 'txt\pi_billion'
 
