@@ -70,7 +70,7 @@ class Eqsegundogrado:
     def tiposol(self):
         """
 
-        Devuelve el tipo de solución
+        Devuelve el tipo de solución.
 
         """
 
