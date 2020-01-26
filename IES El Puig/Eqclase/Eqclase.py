@@ -1,5 +1,8 @@
 # !/usr/bin/python3.5
 
+import cmath as m
+import random as r
+
 
 class Eqsegundogrado:
     """
@@ -28,8 +31,8 @@ class Eqsegundogrado:
 
         self.dis = self.b*self.b-4*self.a*self.c
 
-        self.sol1 = (-self.b + self.dis**0.5)/2
-        self.sol2 = (-self.b - self.dis**0.5)/2
+        self.sol1 = (-self.b + m.sqrt(self.dis))/2
+        self.sol2 = (-self.b - m.sqrt(self.dis))/2
 
         self.eq = f"{self.a}x*x + {self.b}x + {self.c}"
 
@@ -48,20 +51,20 @@ class Eqsegundogrado:
         return f'{self.eq} es la equación actual'.format(self=self)
 
 
-    def redef(self):
+    def randomredef(self):
         """
         
         Recopila el valor de las variables de la equacion
         
         """
 
-        self.a = int(input("introduzca el nuevo valor de la variable a:"))
+        self.a = r.random()
         print (f"el valor de a es {self.a}")
 
-        self.b = int(input("introduzca el nuevo valor de la variable b:"))
+        self.b = r.random()
         print (f"el valor de a es {self.b}")
 
-        self.c = int(input("introduzca el nuevo valor de la variable c:"))
+        self.c = r.random()
         print (f"el valor de a es {self.c}")
 
         print(f"{self.eq} es la nueva equación")
@@ -124,6 +127,6 @@ class Eqsegundogrado:
 eq = Eqsegundogrado(8, 4, 1)
     
 print(eq)
-eq.redef()
+eq.randomredef()
 print(eq)
 eq.mostrarsol()
