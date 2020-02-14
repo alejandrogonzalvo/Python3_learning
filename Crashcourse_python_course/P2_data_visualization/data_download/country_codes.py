@@ -1,7 +1,7 @@
 #!/usr/bin/python3.6
 # -*- coding: utf-8 -*
 
-from pygal.i18n import COUNTRIES
+from pygal import COUNTRIES
 
 def get_country_code(country_name):
 
