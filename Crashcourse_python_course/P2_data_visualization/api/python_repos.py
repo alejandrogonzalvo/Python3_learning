@@ -30,11 +30,16 @@ response_dict = r.json()
 print("Total repositories:", response_dict['total_count'])
 repo_dicts = response_dict['items']
 
-names, stars = [], []
-for repo in repo_dicts:
-    names.append(repo['name'])
-    stars.append(repo['stargazers_count'])
-
+names, plot_dicts = [], []
+for repo_dict in repo_dicts:
+    names.append(repo_dict['name'])
+    
+    plot_dict = {
+        'value': int(repo_dict['stargazers_count']),
+        'label': str(repo_dict['description']),
+        'xlink': str(repo_dict['html_url']),
+    }
+    plot_dicts.append(plot_dict)
 # Make visualization
 my_style = LS('#333366', base_style=LCS)
 
@@ -55,7 +60,7 @@ chart = pygal.Bar(
 chart.title = 'Most-Starred Python Projects on Github'
 chart.x_labels = names
 
-chart.add('', stars)
+chart.add('', plot_dicts)
 chart.render_to_file('python_repos.svg')
 
 print("Repositories returned:", len(repo_dicts))
