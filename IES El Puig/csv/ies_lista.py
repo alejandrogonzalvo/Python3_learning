@@ -20,7 +20,7 @@ def borrarPantalla():
         os.system ("cls")
 
 
-filename = "/home/alejandrogonzalvo4eso/Escritorio/python3_learning/IES El Puig/csv/ai.csv"
+filename = "ai.csv"
 
 with open(filename) as f:
     reader = csv.reader(f)
