@@ -6,8 +6,8 @@
 import datetime as d
 import random as r
 
-
-def creardni():
+ 
+def creardni(fecha = d.date.today()):
     """
     
     Crea un diccionario con la estructura de un dni con datos proporcionados
@@ -27,11 +27,13 @@ def creardni():
 
     dni["nacionalidad"] = input("\nIntroduzca su nacionalidad: ")
 
-    año = 2020
-    mes = 2
-    dia = 5
-    fechacad = d.date(year = 10 + año, month = mes, day = dia)
-    dni["fecha_caducidad"] = fechacad
+
+    fechacad = d.date(
+        year = fecha.year + 10,
+        month = fecha.month,
+        day = fecha.day
+        )
+    dni["fecha_caducidad"] = str(fechacad)
 
     numero = r.randint(10000000, 99999999)
     letra = calcletra(numero)

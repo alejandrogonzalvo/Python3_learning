@@ -1,12 +1,17 @@
 # Genera una lista de dni de forma automatizada, y luego la imprime.
 
 
-from dni import creardni
+import dni
 
+
+import datetime as d
+
+
+today = d.date.today()
 
 lista_dni = []
 for i in range (3):
-    dniaux = creardni()
+    dniaux = dni.creardni(today)
     lista_dni.append(dniaux)
 
 print(lista_dni)
