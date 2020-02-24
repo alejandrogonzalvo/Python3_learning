@@ -13,26 +13,40 @@ import sys # Manipulación entorno operativo.
 from colorama import Fore
 
 
-def borrarPantalla(): 
+def borrarPantalla():
+    nw = {"ce", "nt", "dos"} 
     if os.name == "posix":
         os.system ("clear")
-    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+    elif os.name in nw:
         os.system ("cls")
 
 
-filename = "ai.csv"
+filename = "/home/alejandrogonzalvo4eso/Escritorio/python3_learning/IES El Puig/csv/ai.csv"
 
 with open(filename) as f:
     reader = csv.reader(f)
 
     i = 0
+
     for row in reader:
+        fields = []
         if i < 10:
-            text1 = Fore.GREEN + row[2]
-            text2 = Fore.GREEN + row[3]
-            text3 = Fore.RED + row[1]
-            text4 = Fore.BLUE + row[0]
-            print(text1 + " " + text2 + ", " + text3 + " / " + text4)
+            for r in range(4):
+                field = ""
+                for ch in row[r]:
+                    field += ch
+                
+                while len(field) < 20:
+                    field += " "
+
+                fields.append(field)
+
+
+            text1 = Fore.GREEN + fields[2]
+            text2 = Fore.GREEN + fields[3]
+            text3 = Fore.RED + fields[1]
+            text4 = Fore.BLUE + fields[0]
+            print("\n" + text1 + " " + text2 + ", " + text3 + " / " + text4)
             i += 1
             continue
 
