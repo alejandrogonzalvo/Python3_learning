@@ -8,10 +8,8 @@ import shutil
 
 
 
-def create_folders(path):
+def create_folders(path, folders):
     """Creates standard folders in selected path"""
-
-    folders = ["Imagenes", "Videos", "Audio", "Ebooks", "pdf"]
 
     for folder in folders:
         dir = path + folder
@@ -21,16 +19,16 @@ def create_folders(path):
             pass
 
 
-def arrange_files(path):
-    """Arranges files into standard folders depending on their extension"""
-    
+def arrange_files(path, folders):
+    """Arranges files into standard folders depending on their extension""" 
+
     def move_file(folder):
         try:
             shutil.move(path + f, path + folder + "/" + f)
         except shutil.Error:
              pass
 
-    folders = ["Imagenes", "Videos", "Audio", "Ebooks", "pdf", "rar", "otros"]
+
     files = os.listdir(path)
     for f in files:
         
@@ -53,7 +51,7 @@ def arrange_files(path):
             elif ext == ".pdf":
                 move_file(folders[4])
 
-            elif ext == ".rar":
+            elif ext == ".rar" or ext == ".zip":
                 move_file(folders[5])
 
             else:
@@ -65,6 +63,7 @@ def main():
     """Executes the main program"""
     
     path = "C:/Users/alexf/Downloads/"
+    folders = ["Imagenes", "Videos", "Audio", "Ebooks", "pdf", "comprimidos", "otros"]
 
-    create_folders(path)
-    arrange_files(path)
+    create_folders(path, folders)
+    arrange_files(path, folders)
