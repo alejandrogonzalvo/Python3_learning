@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from numpy import linspace
+from numpy import linspace, cos, sin
 
 from cmath import sqrt
 
@@ -8,20 +8,20 @@ from cmath import sqrt
 def get_x(x):
     """Returns the x value of the mathematical function."""
 
-    t = sqrt(1 / (x**3 / 3 + x / 3))
+    t = cos(x)
     return t
 
 def get_y(y):
     """Returns the y value of the mathematical function."""
 
-    t = 1 / (y**3 / 3 + y / 3)
+    t = sin(y)
     return t
 
 
 
 x_val = []
 y_val = []
-for t in linspace(-100, -0.01, 200):
+for t in linspace(-10, -0.01, 20000):
     x = get_x(t)
     y = get_y(t)
 

@@ -27,6 +27,7 @@ def sum(lives):
         if psol == csol:
             print("\nCorrect!")
 
+            return lives
             break
 
         else:
@@ -60,6 +61,7 @@ def substraction(lives):
         if psol == csol:
             print("\nCorrect!")
 
+            return lives
             break
 
         else:
@@ -85,6 +87,8 @@ def multiplication(lives):
 
         if psol == csol:
             print("\nCorrect!")
+
+            return lives
 
             break
 
@@ -115,6 +119,8 @@ def division(lives):
         if psol == csol:
             print("\nCorrect!")
 
+            return lives
+
             break
 
         else:
@@ -132,19 +138,19 @@ def game(lives):
     
     for i in range(3):
 
-        sum(lives)
+        lives = sum(lives)
 
     for i in range(3): 
         
-        substraction(lives)
+        lives = substraction(lives)
 
     for i in range(3):
         
-        multiplication(lives)
+        lives = multiplication(lives)
 
     for i in range(3):
         
-        division(lives) 
+        lives = division(lives) 
 
     print("\nCongratulations, you won!")
 

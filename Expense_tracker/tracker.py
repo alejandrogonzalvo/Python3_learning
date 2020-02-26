@@ -1,10 +1,13 @@
-import csv
+import functions as f
 
 
-filename = "expenses.csv"
+from inspect import getmembers, isfunction
 
-with open(filename) as f:
-    text = csv.reader(f)
+
+path = "/home/alejandrogonzalvo4eso/Escritorio/python3_learning/Expense_tracker/"
+
+
+a = input("Select the desired operation (h for help): ")
+
+if a == 'h':
     
-    for row in text:
-        print(row)
