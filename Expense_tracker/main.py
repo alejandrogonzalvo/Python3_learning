@@ -1,8 +1,35 @@
 import os
+import json
 
 
 import money as m
 import csv
+
+
+def initialize(filename):
+    """
+    Adjusts the starting parameters.
+    """
+
+    budgets = []
+
+    try: 
+    # Checks if the file exists, and executes the apropiate code
+    # according to the situation.
+        with open(filename, 'r') as f_obj: 
+            budgets = json.load(f_obj) 
+            # Loads the info from older sessions 
+            # into the list.
+
+    except FileNotFoundError: #If the file doesn't exist, we create it.
+        print("Seems you are the first one here!")
+
+        with open(filename, 'w') as f_obj:
+            pass
+
+        return budgets
+     
+
 
 
 class Account:
@@ -11,7 +38,7 @@ class Account:
     Simulates a budget with custom percentatges for each area of spending
 
     """
-    def __init__(self, name, cash, percent):
+    def __init__(self, name, cash = "0", percent):
         self.name = name
         self.cash = cash
         self.percent = percent
@@ -79,18 +106,39 @@ def help():
 
 def create():
     """creates a new account"""
+    name = input("\nSelect name for new account: ")
+    cash = input("Select inital amount of money: ")
+    percent = {}
+    
+    while True:
+        key = input("Name a new category")
+        val = input("Select the percentatge (1-100) for the new category")
+        percent[key] = val
+        total_val = 0
 
+        for val in percent.values():
+            total_val += val
 
-        
+        if total_val < 100:
+            print("The percentatge is smaller than 100. Add a new category")
+            continue
 
-def show(filename):
-    with open(filename) as f:
-        reader = csv.reader(f)
-        for row in reader:
-            print(row)
+        elif total_val == 100:
+            print("The percentatge is = to 100. Creating budget")
+            break
+
+        elif total_val > 100:
+            print("The percentatge cannot be greater than 100. Restarting")
+            total_val = 0
 
 
 def main():
+    """Executes the main program"""
+    
+    filename = "budgets.json"
+
+    budgets = initialize(filename)
+
     while True:
         a = input("Select the desired operation (h for help): ")
 
@@ -101,11 +149,7 @@ def main():
             break
 
         elif a == 's':
-            try:
-                show(filename)
-            except NameError:
-                print("No account has been selected. " +
-                "Please select an existing account or create a new one")
+
         else:
             print("ERROR: The input is not an operation\n")
 
