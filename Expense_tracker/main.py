@@ -1,9 +1,28 @@
+"""
+
+Expense_tracker: This program lets you create, edit, and save unlimited budgets.
+The budgets are customizables by number of categories, initial amount of money,
+name of each categorie and percentatge of money for each category.
+
+You can record a spent on a specific cateory, or an earning, which will be 
+automatically divided by the categories following the stablished criterium
+by the user.
+
+Made by Alejandro Gonzalvo
+Github: https://github.com/dahko37/Python3_learning
+
+"""
+
+
 import os
 import json
 
 
 import money as m
 import csv
+
+def __str__(self):
+   return "{0}".format(self.name)
 
 
 def initialize(filename):
@@ -35,7 +54,8 @@ class Account:
     Simulates a budget with custom percentatges for each area of spending
 
     """
-    def __init__(self, cash, percent):
+    def __init__(self, name, cash, percent):
+        self.name = name
         self.cash = int(cash)
         self.percent = percent
         self.budget = {}
@@ -93,17 +113,23 @@ def getpath():
 
 def help():
     """Returns all the posible operations"""
-    print(
-        "Possible operations:\n\n" +
-        "h (help): shows all posible operations\n" +
-        "s (show): shows all information about the selected account"
-    )
+    posop = [
+        "help : Shows all posible operations" ,
+        "create : Creates a new account" ,
+        "select : Selects an existing account" , 
+        "save : Saves the changesmade on the session" , 
+        "spend : Records a spend on the selected account" , 
+        "earn : Record an earning on the selected account" ,
+        "exit : Closes the program"
+    ]
+    for op in sorted(posop):
+        print("\n{0}\n".format(op))
 
 
 def create():
     """creates a new account"""
     name = input("\nSelect name for new account: ")
-    cash = input("Select inital amount of money: ")
+    cash = int(input("Select inital amount of money: "))
     percent = {}
     
     while True:
@@ -129,20 +155,26 @@ def create():
             percent.clear()
             continue
 
-        return name, cash, percent
+    return name, cash, percent
 
 
 def select(budgets):
     """Selects an existing account to work with"""
     accname = input("Select an existing account: ")
-
-    if accname in budgets:
+    budgetsname = []
+    for budget in budgets:
+        budgetname = __str__(budget)
+        budgetsname.append(budgetname)
+    
+    print(budgetsname)
+    if accname in budgetsname:
         print('account succesfully changed')
-        selacc = budgets(accname)
+        ind = budgetsname.index(accname)
+        selacc = budgets[ind]
         return selacc
 
     else:
-        print('Sorry, the selected account doesnt exist')
+        print("Sorry, the selected account doesn't exist")
 
 
 def save(filename, budgets):
@@ -161,9 +193,9 @@ def main():
     budgets = initialize(filename)
 
     while True:
-        a = input("Select the desired operation (h for help): ")
+        a = input("\nSelect the desired operation (h for help): ")
 
-        if a == 'h':
+        if a == 'help':
             help()
 
         elif a == 'create':
@@ -171,21 +203,37 @@ def main():
                 accname, cash, percent = create()
 
                 if accname in budgets:
-                    print('Sorry, there is already an account with this name. ')
+                    print('\nSorry, there is already an account with this name. ')
                     continue
 
                 break
             
-            accname = Account(cash, percent)
-            print('Account created succesfully')
-            budgets.append(accname)
+            newacc = Account(accname, cash, percent)
+            print('\nAccount created succesfully')
+            budgets.append(newacc)
 
         elif a == 'select':
             selacc = select(budgets)
             
         elif a == 'show':
-            for key, value in selacc.budget:
-                print(key + ' : ' + value)
+            selacc.show()
+
+        elif a == 'earn':
+            amount = int(input("\nHow much have you earned? : "))
+            selacc.earn(amount)
+
+        elif a == 'spend':
+            amount = int(input("\nHow much have you spent? : " ))
+            while True
+                category = input("On which category have you spent it? : ")
+                
+                if category in selacc.budget:
+                    selacc.spend(amount, category)
+                    break
+
+                else:
+                    print("\nThe selected category doesn't exist")
+
 
         elif a == 'save':
             save(filename, budgets)
