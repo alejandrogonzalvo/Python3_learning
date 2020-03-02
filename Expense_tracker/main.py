@@ -36,14 +36,18 @@ def initialize(filename):
     # Checks if the file exists, and executes the apropiate code
     # according to the situation.
         with open(filename, 'r') as f_obj: 
-            budgets = json.load(f_obj) 
+            budgetsdict = json.load(f_obj) 
             # Loads the info from older sessions 
             # into the list.
+            for budget in budgetsdict:
+                oldacc = Account(budget['name'], budget['cash'], budget['percent'])
+                budgets.append(oldacc)
 
     except FileNotFoundError: #If the file doesn't exist, we create it.
         print("Seems you are the first one here!")
 
-        return budgets
+    
+    return budgets
      
 
 
@@ -100,7 +104,7 @@ class Account:
         
         """
         for key, value in self.percent.items():
-            self.budget[key] = amount * value / 100
+            self.budget[key] += amount * value / 100
     
          
 
@@ -180,8 +184,9 @@ def select(budgets):
 def save(filename, budgets):
     """Saves the changes made into the accounts"""
 
-    with open(filename, 'w') as f_obj: 
-        json.dump(budgets, f_obj)
+    with open(filename, 'w') as f_obj:
+        budgets2 = [budget.__dict__ for budget in budgets] 
+        json.dump(budgets2, f_obj)
     
 
 
@@ -224,7 +229,7 @@ def main():
 
         elif a == 'spend':
             amount = int(input("\nHow much have you spent? : " ))
-            while True
+            while True:
                 category = input("On which category have you spent it? : ")
                 
                 if category in selacc.budget:
