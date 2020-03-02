@@ -224,8 +224,11 @@ def main():
             selacc.show()
 
         elif a == 'earn':
+            budgets.remove(selacc)
             amount = int(input("\nHow much have you earned? : "))
             selacc.earn(amount)
+            budgets.append(selacc)
+            
 
         elif a == 'spend':
             amount = int(input("\nHow much have you spent? : " ))
@@ -245,6 +248,8 @@ def main():
             print('account saved succesfully')
         
         elif a == 'exit':
+            save(filename, budgets)
+            print('account saved succesfully')
             break
 
         else:
