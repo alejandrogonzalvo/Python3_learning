@@ -4,7 +4,7 @@ Expense_tracker: This program lets you create, edit, and save unlimited budgets.
 The budgets are customizables by number of categories, initial amount of money,
 name of each categorie and percentatge of money for each category.
 
-You can record a spent on a specific cateory, or an earning, which will be 
+You can record a spent on a specific category, or an earning, which will be 
 automatically divided by the categories following the stablished criterium
 by the user.
 
@@ -36,11 +36,16 @@ def initialize(filename):
     # Checks if the file exists, and executes the apropiate code
     # according to the situation.
         with open(filename, 'r') as f_obj: 
-            budgetsdict = json.load(f_obj) 
+            budgetslist = json.load(f_obj) 
             # Loads the info from older sessions 
             # into the list.
-            for budget in budgetsdict:
-                oldacc = Account(budget['name'], budget['cash'], budget['percent'])
+            for budget in budgetslist:
+                oldacc = Account(
+                    budget['name'],
+                    budget['cash'],
+                    budget['percent'],
+                    budget['spends']
+                    )
                 budgets.append(oldacc)
 
     except FileNotFoundError: #If the file doesn't exist, we create it.
@@ -58,14 +63,20 @@ class Account:
     Simulates a budget with custom percentatges for each area of spending
 
     """
-    def __init__(self, name, cash, percent):
+    def __init__(self, name, cash, percent, spends = []):
         self.name = name
         self.cash = int(cash)
         self.percent = percent
         self.budget = {}
-            
+        self.spends = spends
+
         for key, value in self.percent.items():
             self.budget[key] = self.cash * value / 100
+
+        for spend in self.spends:
+            for key, value in spend.items():
+                self.budget[key] -= value
+
 
 
     def show(self):
@@ -77,6 +88,9 @@ class Account:
         """Reduces the selected amount of money from the selected category"""
         if category in self.budget.keys() and amount < self.budget[category]:
             self.budget[category] -= amount
+            spend = {category : amount}
+            self.spends.append(spend)
+             
 
         elif category in self.budget.keys():
             print("\nYou don't have enough money!\n")
@@ -84,6 +98,9 @@ class Account:
                 res = input("Do you want to go red numbers? (Y/N) :  ")
                 if res == "Y" or res == "y":
                     self.budget[category] -= amount
+                    spend = {category : amount}
+                    self.spends.append(spend)
+
                     break
 
                 if res == "N" or res == "n":
@@ -103,8 +120,14 @@ class Account:
         following the percentatges.
         
         """
+
+        self.cash += amount
         for key, value in self.percent.items():
-            self.budget[key] += amount * value / 100
+            self.budget[key] = self.cash * value / 100
+
+        for spend in self.spends:
+            for key, value in spend.items():
+                self.budget[key] -= value
     
          
 
@@ -164,18 +187,23 @@ def create():
 
 def select(budgets):
     """Selects an existing account to work with"""
-    accname = input("Select an existing account: ")
     budgetsname = []
     for budget in budgets:
         budgetname = __str__(budget)
         budgetsname.append(budgetname)
     
     print(budgetsname)
+    accname = input("Select an existing account: ")
+    
     if accname in budgetsname:
-        print('account succesfully changed')
+
         ind = budgetsname.index(accname)
+        print(budgets)
         selacc = budgets[ind]
-        return selacc
+        del budgets[ind]
+        print(budgets)
+        print('account succesfully changed')
+        return selacc, budgets
 
     else:
         print("Sorry, the selected account doesn't exist")
@@ -218,16 +246,20 @@ def main():
             budgets.append(newacc)
 
         elif a == 'select':
-            selacc = select(budgets)
+            try:
+                budgets.append(selacc)
+
+            except UnboundLocalError:
+                pass
+
+            selacc, budgets = select(budgets)
             
         elif a == 'show':
             selacc.show()
 
         elif a == 'earn':
-            budgets.remove(selacc)
             amount = int(input("\nHow much have you earned? : "))
             selacc.earn(amount)
-            budgets.append(selacc)
             
 
         elif a == 'spend':
@@ -244,10 +276,21 @@ def main():
 
 
         elif a == 'save':
+            try:
+                budgets.append(selacc)
+            
+            except UnboundLocalError:
+                pass
+            
             save(filename, budgets)
             print('account saved succesfully')
         
         elif a == 'exit':
+            try:
+                budgets.append(selacc)
+            
+            except UnboundLocalError:
+                pass
             save(filename, budgets)
             print('account saved succesfully')
             break
