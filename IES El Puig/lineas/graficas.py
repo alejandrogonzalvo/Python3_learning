@@ -50,7 +50,7 @@ def espiral_2():
     plt.show()
 
 
-def corazon_1():
+def cardioide_1():
     """
     Representa la ecuacion parametrica:
 
@@ -75,7 +75,7 @@ def corazon_1():
     plt.show()
 
 
-def corazon_2():
+def cardioide_2():
     """
     Representa la ecuacion parametrica:
 
@@ -124,8 +124,82 @@ def flor_1():
     plt.plot(x_val, y_val, linewidth = 0.5)
     plt.show()
 
-flor_1()
+def nudo():
+    """
 
+    Representa la equacion paramétrica:
 
+    x = (3*t) / (1 + t**3)
+    y = (3*t**2) / (1 + t**3)
+
+    """
+
+    x_val = []
+    y_val = []
+
+    for t in linspace(-1000, 1000, 10000):
+
+        x = (3*t) / (1 + t**3)
+        y = (3*t**2) / (1 + t**3)
+        x_val.append(x)
+        y_val.append(y)
+
+    plt.plot(x_val, y_val)
+    plt.show()        
+
+def cardinal():
+    """
+
+    Representa la equacion parametrica:
+
+    x = cos(t)**n
+    y = sen(t)**n
+
+    para: 0 < t < 2pi, n = 1,3,5 
+
+    """
+
+    x_val = []
+    y_val = []
+    n_val = [1, 3, 5] 
+
+    for n in n_val:
+        for t in linspace(0, 2*pi, 1000):
+
+            x = cos(t)**n
+            y = sin(t)**n
+            x_val.append(x)
+            y_val.append(y)
+
+    plt.plot(x_val, y_val)
+    plt.show()
+
+def red():
+    """
+
+    Representa la equacion parametrica:
+
+    x = cos(3*t)
+    y = sin(5*t)
+
+    para: 0 < t < 2pi, n = 1,3,5 
+
+    """
+
+    x_val = []
+    y_val = [] 
+
+    for t in linspace(0, 2*pi, 1000):
+
+        x = cos(3*t)
+        y = sin(5*t)
+        x_val.append(x)
+        y_val.append(y)
+
+    plt.plot(x_val, y_val)
+    plt.show()
+    
+
+red()
 def main():
     """Ejecuta el programa principal"""
