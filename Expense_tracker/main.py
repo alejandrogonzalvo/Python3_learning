@@ -227,7 +227,7 @@ def main():
                 accname, cash, percent = create()
 
                 if accname in budgetsname:
-                    print('\nSorry, there is already an account with this name. ')
+                    print('\nSorry, there is an account with this name. ')
                     continue
 
                 break
