@@ -111,6 +111,8 @@ def initialize(filename):
 
     except FileNotFoundError: #If the file doesn't exist, we create it.
         print("Seems you are the first one here!")
+        budgetslist = []
+        budgetsname = []
 
     
     return budgets, budgetslist, budgetsname
