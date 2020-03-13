@@ -30,5 +30,7 @@ with open(filename, 'w') as f:
     infowriter = csv.writer(f)
 
     for k,v in frqLetras.items():
-        infowriter.writerow(f"{k},  : ,{v}")
+        infowriter.writerow(f"{k} : {v}")
+
+    infowriter.writerow(palabras)
 
