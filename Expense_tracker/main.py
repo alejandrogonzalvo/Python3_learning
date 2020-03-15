@@ -4,7 +4,7 @@ Expense_tracker: This program lets you create, edit, and save unlimited budgets.
 The budgets are customizables by number of categories, initial amount of money,
 name of each categorie and percentatge of money for each category.
 
-You can record a spent on a specific category, or an earning, which will be 
+You can record a spent on a specific category or an earning, which will be 
 automatically divided by the categories following the stablished criterium
 by the user.
 
@@ -29,7 +29,7 @@ def __str__(self):
 
 class Account:
     """
-    
+
     Simulates a budget with custom percentatges for each area of spending
 
     """
@@ -60,7 +60,7 @@ class Account:
             self.budget[category] -= amount
             spend = {category : amount}
             self.spends.append(spend)
-             
+
 
         elif category in self.budget.keys():
             print("\nYou don't have enough money!\n")
@@ -76,7 +76,7 @@ class Account:
                 if res == "N" or res == "n":
                     print("Good decision! Operation canceled :)")
                     break
-              
+
         else:
             print("\nthe selected category doesn't exist")
 
@@ -88,12 +88,12 @@ def initialize(filename):
 
     budgets = []
 
-    try: 
+    try:
     # Checks if the file exists, and executes the apropiate code
     # according to the situation.
-        with open(filename, 'r') as f_obj: 
-            budgetslist = json.load(f_obj) 
-            # Loads the info from older sessions 
+        with open(filename, 'r') as f_obj:
+            budgetslist = json.load(f_obj)
+            # Loads the info from older sessions
             # into the list.
             for budget in budgetslist:
                 oldacc = Account(
@@ -114,9 +114,9 @@ def initialize(filename):
         budgetslist = []
         budgetsname = []
 
-    
+
     return budgets, budgetslist, budgetsname
-     
+
 
 def getpath():
     """Returns the path of the file folder"""
@@ -130,8 +130,8 @@ def help():
         "help : Shows all posible operations" ,
         "show : Shows all information about selected account"
         "create : Creates a new account" ,
-        "select : Selects an existing account" , 
-        "spend : Records a spend on the selected account" , 
+        "select : Selects an existing account" ,
+        "spend : Records a spend on the selected account" ,
         "earn : Record an earning on the selected account" ,
         "exit : Closes the program"
     ]
@@ -141,7 +141,7 @@ def help():
 
 def create():
     """creates a new account"""
-    
+
     name = input("\nSelect name for new account: ")
     while True:
         try:
@@ -149,10 +149,10 @@ def create():
         except ValueError:
             print("\nERROR: MONEY IS A NUMBER, NOT A WORD")
             continue
-        
+
         break
     percent = {}
-    
+
     while True:
         key = input("Name a new category: ")
         while True:
@@ -187,10 +187,10 @@ def create():
 
 def select(budgets, budgetsname):
     """Selects an existing account to work with"""
-    
+
     print("\n{0}".format(budgetsname))
     accname = input("\nSelect an existing account: ")
-    
+
     if accname in budgetsname:
 
         ind = budgetsname.index(accname)
@@ -206,14 +206,14 @@ def save(filename, budgets):
     """Saves the changes made into the accounts"""
 
     with open(filename, 'w') as f_obj:
-        budgetslist = [budget.__dict__ for budget in budgets] 
+        budgetslist = [budget.__dict__ for budget in budgets]
         json.dump(budgetslist, f_obj)
-    
+
 
 
 def main():
     """Executes the main program"""
-    
+
     filename = "budgets.json"
 
     budgets, budgetslist, budgetsname = initialize(filename)
@@ -233,7 +233,7 @@ def main():
                     continue
 
                 break
-            
+
             newacc = Account(accname, cash, percent)
             acclist = newacc.__dict__
             budgetname = __str__(newacc.name)
@@ -248,17 +248,17 @@ def main():
 
             except UnboundLocalError:
                 pass
-            
+
             try:
                 selacc, budgets = select(budgets, budgetsname)
-            
+
             except TypeError:
                 try:
                     budgets.remove(selacc)
 
                 except UnboundLocalError:
                     pass
-            
+
         elif a == 'show':
             try:
                 selacc.show()
@@ -273,18 +273,18 @@ def main():
             amount = int(input("\nHow much have you spent? : " ))
             while True:
                 category = input("\nIn which category have you spent it? : ")
-                
+
                 if category in selacc.budget:
                     selacc.spend(amount, category)
                     break
 
                 else:
                     print("\nThe selected category doesn't exist")
-        
+
         elif a == 'exit':
             try:
                 budgets.append(selacc)
-            
+
             except UnboundLocalError:
                 pass
             save(filename, budgets)
@@ -293,7 +293,3 @@ def main():
 
         else:
             print("\nERROR: THE INPUT IS NOT A POSSIBLE OPERATION")
-
-
-
-
