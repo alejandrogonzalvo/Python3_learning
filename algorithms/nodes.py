@@ -1,13 +1,13 @@
 import random as r
 
 
-class Node:
+class Binode:
     """represents a node containing 1 or 0 values in a binary tree."""
 
-    def __init__(self):
+    def __init__(self, val = None):
         self.left = None
         self.right = None
-        self.val = None
+        self.val = val
 
     def insert(self, val):
         """Inserts the selected value in the correct node"""
@@ -17,12 +17,12 @@ class Node:
 
         elif val < self.val:
             if self.left is None:
-                self.left = Node()
+                self.left = Binode()
             self.left.insert(val)
 
         elif val > self.val:
             if self.right is None:
-                self.right = Node()
+                self.right = Binode()
             self.right.insert(val)
 
     def show_tree(self):
@@ -50,3 +50,19 @@ class Node:
             s = False
 
         return s
+
+
+class Linode:
+    """Represents a node in a linked list"""
+
+    def __init__(self, val = None):
+        self.val = val
+        self.next = None
+
+    def add(self, val = None):
+        self.next = Linode(val)
+
+    def show_list(self):
+        print(self.val)
+        if self.next:
+            self.next.show_list()

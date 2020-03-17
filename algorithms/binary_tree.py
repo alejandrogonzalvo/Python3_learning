@@ -1,13 +1,13 @@
 import random as r
 
 
-from node import Node
+from nodes import Binode
 
 
 num_list = [r.randint(1, 1000) for _ in range(1000)]
 print(num_list)
 
-root = Node()
+root = Binode()
 for num in num_list:
     root.insert(num)
 
