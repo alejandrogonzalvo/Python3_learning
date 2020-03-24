@@ -9,12 +9,22 @@ ______________________________
 
 FOLDERS
 
+algorithms: Sorting, Selecting algorithms in python.
+
 Crashcourse: All code related to crashcourse python guide.
 
 IES El Puig: All code related to my computer's class.
 
-Mental training: Math minigames made for fun.
+Calculus: Math minigame made for fun.
 
+django_learning: All code related to the django module.
+
+expense_tracker: tracks expenses and makes customizable budgets.
+
+file_mover: Automatically reorders files in new directories acording to their extension.
+
+stackoverflow: all code related to stackoverflow questions.
+ 
 
 _______________________________
 
