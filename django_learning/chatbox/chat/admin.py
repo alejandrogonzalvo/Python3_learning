@@ -1,17 +1,18 @@
 from django.contrib import admin
 
 
-from .models import Message
-
-class MessageAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields' : ['message_text']}),
-        ('Sent:', {'fields': ['send_date']})
-    ]
-
-    list_display = ('message_text', 'send_date', 'was_published_recently')
-    list_filter = ['send_date']
-    search_fields = ['message_text']
+from .models import Message, Conversation
 
 
-admin.site.register(Message, MessageAdmin)
+class MessageAdmin(admin.TabularInline):
+    model = Message
+    fields = ['message_text', 'author', 'send_date']
+    extra = 0
+
+
+class ConversationAdmin(admin.ModelAdmin):
+    fields = ['conversation_name']
+    inlines = [MessageAdmin]
+
+
+admin.site.register(Conversation, ConversationAdmin)

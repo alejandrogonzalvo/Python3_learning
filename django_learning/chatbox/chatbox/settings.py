@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'chatboxdata',
         'USER': 'dahko37',
-        'PASSWORD':'alexis024680',
+        'PASSWORD': 'alexis024680',
         'HOST': '',
     }
 }
