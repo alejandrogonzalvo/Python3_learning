@@ -1,0 +1,8 @@
+<h1>{message.conversation}</h1>
+<ul>
+{% for message in message_list %}
+    <li>{{message.message_text}}</li>
+{% empty %}
+    <li>You haven't sent any message on this conversation yet!.</li>
+{% endfor %}
+</ul>
