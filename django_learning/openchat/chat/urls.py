@@ -16,6 +16,11 @@ urlpatterns = [
         name='conversation_list'
         ),
     path(
+        'conversations/create-conversation',
+        views.create_conversation,
+        name='create_conversation'
+    ),
+    path(
         'conversations/<conversation>',
         views.message_list,
         name='message_list'
@@ -23,10 +28,5 @@ urlpatterns = [
     path(
         'signup',
         views.signup
-    ),
-    path(
-        'conversations/create-conversation',
-        views.create_conversation,
-        name='create_conversation'
     ),
 ]

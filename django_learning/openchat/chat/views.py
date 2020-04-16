@@ -71,8 +71,14 @@ def create_conversation(request):
     if request.method == 'POST':
         form = ConversationForm(request.POST)
         if form.is_valid():
+            new_conversation = Conversation.objects.create(
+                name=form.cleaned_data['name'],
+                author=request.user,
+                )
+            new_conversation.users.set(form.cleaned_data['users'])
+            new_conversation.save()
             return HttpResponseRedirect(
-                'conversations/{}'.format(Conversation.name)
+                '{}'.format(new_conversation.name)
                 )
 
     else:
