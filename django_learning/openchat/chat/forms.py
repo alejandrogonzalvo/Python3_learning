@@ -1,5 +1,8 @@
 from django import forms
+from .models import Conversation
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField(max_length=30)
+class ConversationForm(forms.ModelForm):
+    class Meta:
+        model = Conversation
+        fields = ['name', 'users']

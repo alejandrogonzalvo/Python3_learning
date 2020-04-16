@@ -11,13 +11,24 @@
         {% if messages %}
             <ul class="message_list">
                 {% for message in messages %}
+                {% if message.author == user %}
+            <div class="message-mine">
                 <li>
-                    <div class="message">
-                        <p class="message_text">{{message.text}}</p><p class="message_info">{{message.date}}, {{message.author}}</p>
-                    </div>
+                    <p class="message_text">{{message.text}}</p><p class="message_info">{{message.date}}, by {{message.author}}</p>                 
                 </li>
+            </div>
+
+                    
+                {% else %}
+                <div class="message-other">
+                <li>
+                   <p class="message_text">{{message.text}}</p><p class="message_info">{{message.date}}, by {{message.author}}</p>
+                </li>
+               </div>
+                {% endif %}
                 {% endfor %}
             </ul>
+
     {% else %}
         <p class="no_messages">You haven't sent any messages yet!</p>
     {% endif%}

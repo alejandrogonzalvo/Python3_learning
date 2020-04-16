@@ -4,8 +4,16 @@ from django.contrib.auth.models import User
 
 class Conversation(models.Model):
     name = models.CharField(max_length=30, unique=True, default="Void")
-    users = models.ManyToManyField(User)
-
+    users = models.ManyToManyField(User, default="dahko37", null=True)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        to_field="username",
+        related_name="author",
+        default="dahko37",
+        null=True
+        )
+    
     def __str__(self):
         return self.name
 

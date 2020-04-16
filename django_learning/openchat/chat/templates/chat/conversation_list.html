@@ -8,9 +8,9 @@
 </head>
 <body>
     <div class="list_of_conversations">
-        {% if conversation_list %}
+        {% if conversations %}
             <ul>
-                {% for conversation in conversation_list %}
+                {% for conversation in conversations %}
                 <li><a href="{% url 'chat:message_list' conversation %}">{{ conversation.name }}</a></li>
                 {% endfor %}
             </ul>

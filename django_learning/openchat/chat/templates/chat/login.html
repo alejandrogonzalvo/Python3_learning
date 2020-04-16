@@ -12,19 +12,22 @@
 </head>
 <body>
     <h1 class="Title">Openchat</h1>
-    <form action="/your-name/" method="post">
+    <form method="POST">
         {% csrf_token %}
-        {{ form }}
+
+        {{form.username.errors}}
+        <label for="{{ form.username.id_for_label}}">Username</label><br>
+        {{ form.username }}<br><br>
+
+        {{form.password.errors}}
+        <label for ="{{ form.password.id_for_label}}">Password</label><br>
+        {{ form.password }}<br><br>
         
-        <input type="submit" id="submit" value="Login">
+       
+        <input type="submit" class="button" id="submit" value="Login">
+        <button type="button" class="button"><a href="signup">Sign up</a></button>
     </form>
         
     
 </body>
 </html>
-
-
-<!--<label for="username">Username</label><br>
-        <input type="text" id="username" name="username" class="login_info"><br><br>
-        <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" class="login_info"><br><br>

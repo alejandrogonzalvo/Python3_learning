@@ -11,13 +11,22 @@ urlpatterns = [
         name="login"
         ),
     path(
-        '<username>/conversations',
-        views.ConversationListView.as_view(),
+        'conversations',
+        views.conversation_list,
         name='conversation_list'
         ),
     path(
-        '<conversation>',
+        'conversations/<conversation>',
         views.message_list,
         name='message_list'
         ),
+    path(
+        'signup',
+        views.signup
+    ),
+    path(
+        'conversations/create-conversation',
+        views.create_conversation,
+        name='create_conversation'
+    ),
 ]
